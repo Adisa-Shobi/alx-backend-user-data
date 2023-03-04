@@ -14,18 +14,15 @@ PII_FIELDS = ('name', 'ssn', 'email', 'phone', 'password')
 print(PII_FIELDS)
 
 
-def filter_datum(fields: List[str],
-                 redaction: str,
-                 message: str,
-                 separator: str) -> str:
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator: str) -> str:
     '''
     returns the log message obfuscated
     '''
     log_line = message
     for field in fields:
-        log_line = re.sub(
-            f'((?<={field}=)([^;])*(?=;))',
-            f'{redaction}', log_line)
+        log_line = re.sub(f'((?<={field}=)([^;])*(?={separator}))',
+            redaction, log_line)
     return log_line
 
 
