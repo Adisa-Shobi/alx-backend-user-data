@@ -24,8 +24,8 @@ def filter_datum(fields: List[str],
     log_line = message
     for field in fields:
         log_line = re.sub(
-            r'((?<={}=)([^;])*(?=;))'.format(field),
-            r'{}'.format(redaction), log_line)
+            f'((?<={field}=)([^;])*(?=;))',
+            f'{redaction}', log_line)
     return log_line
 
 
