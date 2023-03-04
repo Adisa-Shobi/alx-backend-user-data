@@ -16,14 +16,12 @@ print(PII_FIELDS)
 
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
+    '''returns the log message obfuscated
     '''
-    returns the log message obfuscated
-    '''
-    log_line = message
     for field in fields:
-        log_line = re.sub(f'((?<={field}=)([^;])*(?={separator}))',
-                          redaction, log_line)
-    return log_line
+        message = re.sub(f'((?<={field}=)([^;])*(?={separator}))', redaction,
+                          message)
+    return message
 
 
 class RedactingFormatter(logging.Formatter):
