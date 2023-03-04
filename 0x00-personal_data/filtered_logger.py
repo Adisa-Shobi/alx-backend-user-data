@@ -22,7 +22,7 @@ def filter_datum(fields: List[str], redaction: str,
     log_line = message
     for field in fields:
         log_line = re.sub(f'((?<={field}=)([^;])*(?={separator}))',
-            redaction, log_line)
+                          redaction, log_line)
     return log_line
 
 
