@@ -5,7 +5,7 @@ defines user hadling functions
 import mysql.connector
 import csv
 import re
-from typing import List
+from typing import List, Tuple
 import logging
 import os
 
@@ -31,7 +31,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields):
+    def __init__(self, fields: Tuple[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
