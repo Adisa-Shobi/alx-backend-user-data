@@ -51,12 +51,13 @@ def before_request():
         is_part = auth.require_auth(request.path,
                                     "['/api/v1/status/', \
 '/api/v1/unauthorized/', '/api/v1/forbidden/']")
-        is_auth = auth.authorization_header(request)
-        if is_auth is None:
-            abort(401)
-        current_user = auth.current_user(request)
-        if current_user is None:
-            abort(403)
+        if is_part:
+            is_auth = auth.authorization_header(request)
+            if is_auth is None:
+                abort(401)
+            current_user = auth.current_user(request)
+            if current_user is None:
+                abort(403)
 
 
 if __name__ == "__main__":
