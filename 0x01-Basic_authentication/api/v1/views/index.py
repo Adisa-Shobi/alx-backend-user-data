@@ -33,3 +33,12 @@ def error_401() -> str:
       - calls error
     """
     abort(401)
+
+
+@app_views.route('/forbidden/', strict_slashes=False)
+def error_403() -> str:
+    """ GET /api/v1/forbidden
+    Return:
+      - calls error
+    """
+    abort(403)
