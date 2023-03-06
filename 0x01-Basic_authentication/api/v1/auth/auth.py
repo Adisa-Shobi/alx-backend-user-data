@@ -20,7 +20,7 @@ class Auth:
         '''
         To be implemented
         '''
-        return False
+        return None
 
     def current_user(self, request=None) -> TypeVar('User'):
         '''
