@@ -56,10 +56,10 @@ def before_request():
     if auth:
         is_part = auth.require_auth(request.path,
                                     "['/api/v1/status/', \
-'/api/v1/unauthorized/', '/api/v1/forbidden/']")
+'/api/v1/unauthorized/', '/api/v1/forbidden/', /api/v1/auth_session/login/]")
         if is_part:
             is_auth = auth.authorization_header(request)
-            if is_auth is None:
+            if is_auth is None and auth.session_cookie(request) is None:
                 abort(401)
             current_user = auth.current_user(request)
             if current_user is None:
