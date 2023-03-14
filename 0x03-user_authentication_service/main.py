@@ -2,19 +2,21 @@
 """
 Main file
 """
-from user import User
-from db import DB
+from auth import Auth
 
-print(User.__tablename__)
+email = 'me@me.com'
+password = 'mySecuredPwd'
 
-for column in User.__table__.columns:
-    print("{}: {}".format(column, column.type))
+auth = Auth()
 
+try:
+    user = auth.register_user(email, password)
+    print("successfully created a new user!")
+except ValueError as err:
+    print("could not create a new user: {}".format(err))
 
-my_db = DB()
-
-user_1 = my_db.add_user("test@test.com", "SuperHashedPwd")
-print(user_1.id)
-
-user_2 = my_db.add_user("test1@test.com", "SuperHashedPwd1")
-print(user_2.id)
+try:
+    user = auth.register_user(email, password)
+    print("successfully created a new user!")
+except ValueError as err:
+    print("could not create a new user: {}".format(err))
