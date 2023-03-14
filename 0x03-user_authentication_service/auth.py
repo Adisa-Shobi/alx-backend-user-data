@@ -7,6 +7,7 @@ from user import User
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
+import uuid
 
 
 def _hash_password(password: str) -> bytes:
@@ -42,3 +43,14 @@ class Auth:
         except (InvalidRequestError, NoResultFound):
             return False
         return bcrypt.checkpw(bytes(password, 'utf-8'), user.hashed_password)
+
+    def create_session(self, email: str) -> str:
+        '''Creates a session for new user
+        '''
+        try:
+            user = self._db.find_user_by(email=email)
+        except (InvalidRequestError, NoResultFound):
+            return None
+        session_id = str(uuid.uuid4())
+        self._db.update_user(user.id, session_id=session_id)
+        return session_id
