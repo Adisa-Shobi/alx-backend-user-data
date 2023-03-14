@@ -17,6 +17,11 @@ def _hash_password(password: str) -> bytes:
     hashed_pw = bcrypt.hashpw(bytes(password, 'utf-8'), bcrypt.gensalt())
     return hashed_pw
 
+def _generate_uuid() -> str:
+    '''Generates an id
+    '''
+    return str(uuid.uuid4())
+
 
 class Auth:
     """Auth class to interact with the authentication database.
@@ -52,6 +57,6 @@ class Auth:
             user = self._db.find_user_by(email=email)
         except (InvalidRequestError, NoResultFound):
             return None
-        session_id = str(uuid.uuid4())
+        session_id = _generate_uuid()
         self._db.update_user(user.id, session_id=session_id)
         return session_id
