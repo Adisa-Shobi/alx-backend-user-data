@@ -51,7 +51,7 @@ class Auth:
             return False
         return bcrypt.checkpw(bytes(password, 'utf-8'), user.hashed_password)
 
-    def create_session(self, email: str) -> Union[str, None]:
+    def create_session(self, email: str) -> str:
         '''Creates a session for new user
         '''
         try:
