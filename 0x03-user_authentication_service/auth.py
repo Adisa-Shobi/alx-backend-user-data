@@ -52,7 +52,7 @@ class Auth:
         return bcrypt.checkpw(bytes(password, 'utf-8'), user.hashed_password)
 
     def create_session(self, email: str) -> str:
-        '''Creates a session for new user
+        '''Creates a session for new user and returns the session_id
         '''
         try:
             user = self._db.find_user_by(email=email)
