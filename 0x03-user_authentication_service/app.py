@@ -69,6 +69,7 @@ def profile():
     else:
         abort(403)
 
+
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
     '''generate a token and respond with a 200 HTTP status
@@ -79,6 +80,21 @@ def get_reset_password_token():
     except ValueError:
         abort(403)
     return jsonify({"email": email, "reset_token": reset_token})
+
+
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
+def update_password():
+    '''Update the password. If the token is invalid, catch
+    the exception and respond with a 403 HTTP code.
+    '''
+    email = request.form.get("email", None)
+    reset_token = request.form.get("reset_token", None)
+    new_password = request.form.get("new_password", None)
+    try:
+        AUTH.update_password(reset_token, new_password)
+    except ValueError:
+        abort(403)
+    return jsonify({"email": email, "message": "Password updated"})
 
 
 if __name__ == "__main__":
