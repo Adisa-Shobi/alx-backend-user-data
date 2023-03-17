@@ -17,7 +17,4 @@ AUTH.update_password(
 )
 
 if user.reset_token is not None:
-    print("Reset token not set to none after updating password. Password update did not work correctly.")
     exit(0)
-
-print("OK", end='')
